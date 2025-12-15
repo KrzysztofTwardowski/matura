@@ -1,7 +1,7 @@
 from collections import Counter
 from collections.abc import Iterable
 from functools import cache, partial
-from itertools import compress, islice
+from itertools import compress, islice, count
 from math import ceil, isqrt
 from typing import Iterator
 
@@ -17,20 +17,22 @@ def zadanie31(liczby: Iterable[int]) -> tuple[int, int]:
 
 
 @cache
-def sito(rozmiar: int = 10_000) -> list[bool]:
-    wynik = [True] * rozmiar
-    wynik[:2] = [False] * 2
+def liczby_pierwsze(rozmiar=10_000) -> tuple[int, ...]:
+    sito = [True] * rozmiar
+    sito[:2] = [False] * 2
     for i in range(2, isqrt(rozmiar) + 1):
-        if wynik[i]:
+        if sito[i]:
             ilość = ceil(rozmiar / i) - i
-            wynik[i * i:: i] = [False] * ilość
-    return wynik
+            sito[i * i:: i] = [False] * ilość
+    return tuple(compress(count(), sito))
 
 
 def różne_czynniki(liczba: int) -> Iterator[int]:
-    for pierwsza in compress(range(liczba + 1), sito()):
+    for pierwsza in liczby_pierwsze():
         if liczba % pierwsza == 0:
             yield pierwsza
+        if pierwsza >= liczba:
+            break
 
 
 def zadanie32(liczby: Iterable[int]) -> Iterator[int]:
