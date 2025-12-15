@@ -1,9 +1,8 @@
 from collections import Counter
-from collections.abc import Iterable
+from collections.abc import Iterable, Iterator
 from functools import cache, partial
 from itertools import compress, islice, count
 from math import ceil, isqrt
-from typing import Iterator
 
 
 def zadanie31(liczby: Iterable[int]) -> tuple[int, int]:
