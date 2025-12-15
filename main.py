@@ -48,9 +48,9 @@ def procedura(liczba: int) -> int:
     return int(cyfry_malejąco) - int(cyfry_rosnąco)
 
 
-def zadanie33(liczby: Iterable[int]) -> tuple[dict[str, int], list[int]]:
+def zadanie33(liczby: Iterable[int]) -> tuple[Counter, list[int]]:
     równe = []
-    ilości: dict[str, int] = Counter()
+    ilości = Counter()
     for liczba in liczby:
         wynik = procedura(liczba)
         if wynik > liczba:
